@@ -25,15 +25,15 @@ namespace LRouge
             {
 
                 DrawMap();
-                 //draw map
-                 //get command
-                 //execute action
-                 //draw map
-                 //enemy actions
-                 //draw map
+                //draw map
+                //get command
+                //execute action
+                //draw map
+                //enemy actions
+                //draw map
 
             } while (gameInProgress);
-               //while game in progress
+            //while game in progress
         }
 
         private void DrawMap()
@@ -42,18 +42,34 @@ namespace LRouge
             {
                 for (int x = 0; x < map.Width; x++)
                 {
-                    var cell = map.GetCell(y, x);
-                    Console.Write(cell.Symbol);
+                    Cell cell = map.GetCell(y, x);
+                    //Console.ForegroundColor = cell?.Color ?? ConsoleColor.White;
+                    //Console.Write(cell?.Symbol);
+                    IDrawable drawable = cell;
+
+                    foreach (var creature in map.Creatures)
+                    {
+                        if(creature.Cell == cell)
+                        {
+                            drawable = creature;
+                            break;
+                        }
+                    }
+                    Console.ForegroundColor = drawable?.Color ?? ConsoleColor.White;
+                    Console.Write(drawable?.Symbol);
                 }
                 Console.WriteLine();
             }
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private void Initialize()
         {
             //ToDo: Read from config later
-             map = new Map(width: 10, height: 10);
-             hero = new Hero();
+            map = new Map(width: 10, height: 10);
+            var heroCell = map.GetCell(0, 0);
+            hero = new Hero(heroCell);
+            map.Creatures.Add(hero);
         }
     }
 }
