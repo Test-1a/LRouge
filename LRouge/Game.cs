@@ -24,7 +24,7 @@ namespace LRouge
             do
             {
 
-                Draw();
+                DrawMap();
                  //draw map
                  //get command
                  //execute action
@@ -36,9 +36,17 @@ namespace LRouge
                //while game in progress
         }
 
-        private void Draw()
+        private void DrawMap()
         {
-            
+            for (int y = 0; y < map.Height; y++)
+            {
+                for (int x = 0; x < map.Width; x++)
+                {
+                    var cell = map.GetCell(y, x);
+                    Console.Write(cell.Symbol);
+                }
+                Console.WriteLine();
+            }
         }
 
         private void Initialize()

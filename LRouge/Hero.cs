@@ -1,6 +1,6 @@
 ﻿namespace LRouge
 {
-    internal class Hero
+    internal class Hero : Creature
     {
         public Hero()
         {

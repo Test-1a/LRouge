@@ -1,4 +1,6 @@
-﻿namespace LRouge
+﻿using System;
+
+namespace LRouge
 {
     internal class Map
     {
@@ -27,5 +29,9 @@
             }
         }
 
+        internal Cell GetCell(int y, int x)
+        {
+            return cells[y, x];
+        }
     }
 }
