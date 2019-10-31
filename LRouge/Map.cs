@@ -4,7 +4,11 @@
     {
         private readonly int width;
         private readonly int height;
+        public int Width => width;
+        public int Height { get { return height; } }
 
+
+        //ToDo: Make comment
         private readonly Cell[,] cells;
 
         public Map(int width, int height)
@@ -22,5 +26,6 @@
                 }
             }
         }
+
     }
 }
