@@ -11,22 +11,9 @@ namespace LRouge
                 for (int x = 0; x < map.Width; x++)
                 {
                     Cell cell = map.GetCell(y, x);
-                    //Console.ForegroundColor = cell?.Color ?? ConsoleColor.White;
-                    //Console.Write(cell?.Symbol);
 
-                    IDrawable drawable = cell;
-
-                    //var drawable = map.Creatures.FirstOrDefault((x) => x.Cell == cell) as IDrawable ?? cell;
-
-                    foreach (var creature in map.Creatures)
-                    {
-                        if (creature.Cell == cell)
-                        {
-                            drawable = creature;
-                            break;
-                        }
-                    }
-
+                    var drawable = map.CreatureAt(cell) ?? cell;
+                
                     Console.ForegroundColor = drawable?.Color ?? ConsoleColor.White;
                     Console.Write(drawable?.Symbol);
                 }

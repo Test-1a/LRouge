@@ -41,11 +41,10 @@ namespace LRouge
 
         private void GetInput()
         {
-            var keyPressed = UI.GetKey();
+            ConsoleKey keyPressed = UI.GetKey();
 
             switch (keyPressed)
             {
-                
                 case ConsoleKey.LeftArrow:
                    Move(hero.Cell.X - 1, hero.Cell.Y);
                     break;
@@ -58,15 +57,13 @@ namespace LRouge
                 case ConsoleKey.DownArrow:
                    Move(hero.Cell.X, hero.Cell.Y + 1);
                     break;
-                default:
-                    break;
             }
         }
 
         private void Move(int x, int y)
         {
-            var moveToCell = map.GetCell(y,x);
-            if (moveToCell != null) hero.Cell = moveToCell;
+            var newPosition = map.GetCell(y,x);
+            if (newPosition != null) hero.Cell = newPosition;
         }
 
         private void DrawMap()

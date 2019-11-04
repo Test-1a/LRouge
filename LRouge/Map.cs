@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LRouge
 {
@@ -28,6 +29,11 @@ namespace LRouge
                     cells[y, x] = new Cell(y, x);
                 }
             }
+        }
+
+        internal IDrawable CreatureAt(Cell cell)
+        {
+           return Creatures.FirstOrDefault(creature => creature.Cell == cell);
         }
 
         internal Cell GetCell(int y, int x)
