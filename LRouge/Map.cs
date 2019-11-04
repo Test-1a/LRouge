@@ -33,22 +33,14 @@ namespace LRouge
 
         internal IDrawable CreatureAt(Cell cell)
         {
+           //Returns creature as IDrawable if the cell contains any creature
            return Creatures.FirstOrDefault(creature => creature.Cell == cell);
         }
 
         internal Cell GetCell(int y, int x)
         {
-            //Don't do this
-            try
-            {
-                 return cells[y, x];
-
-            }
-            catch (Exception)
-            {
-
-                return null;
-            }
+            if (x < 0 || x >= Width || y < 0 || y >= Height) return null;
+            return cells[y, x];
         }
     }
 }
