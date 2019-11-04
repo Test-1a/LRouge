@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace LRouge
 {
@@ -24,43 +25,56 @@ namespace LRouge
             do
             {
 
-                DrawMap();
                 //draw map
+                DrawMap();
                 //get command
+                GetInput();
                 //execute action
                 //draw map
+                DrawMap();
                 //enemy actions
                 //draw map
 
-            } while (gameInProgress);
+            } while (true);
             //while game in progress
+        }
+
+        private void GetInput()
+        {
+            var keyPressed = UI.GetKey();
+
+            switch (keyPressed)
+            {
+                
+                case ConsoleKey.LeftArrow:
+                   Move(hero.Cell.X - 1, hero.Cell.Y);
+                    break;
+                case ConsoleKey.UpArrow:
+                   Move(hero.Cell.X, hero.Cell.Y - 1);
+                    break;
+                case ConsoleKey.RightArrow:
+                   Move(hero.Cell.X + 1, hero.Cell.Y);
+                    break;
+                case ConsoleKey.DownArrow:
+                   Move(hero.Cell.X, hero.Cell.Y + 1);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void Move(int x, int y)
+        {
+            var moveToCell = map.GetCell(y,x);
+            if (moveToCell != null) hero.Cell = moveToCell;
         }
 
         private void DrawMap()
         {
-            for (int y = 0; y < map.Height; y++)
-            {
-                for (int x = 0; x < map.Width; x++)
-                {
-                    Cell cell = map.GetCell(y, x);
-                    //Console.ForegroundColor = cell?.Color ?? ConsoleColor.White;
-                    //Console.Write(cell?.Symbol);
-                    IDrawable drawable = cell;
-
-                    foreach (var creature in map.Creatures)
-                    {
-                        if(creature.Cell == cell)
-                        {
-                            drawable = creature;
-                            break;
-                        }
-                    }
-                    Console.ForegroundColor = drawable?.Color ?? ConsoleColor.White;
-                    Console.Write(drawable?.Symbol);
-                }
-                Console.WriteLine();
-            }
-            Console.ForegroundColor = ConsoleColor.White;
+            UI.Clear(); 
+            UI.Draw(map);
+           
+            
         }
 
         private void Initialize()

@@ -6,7 +6,7 @@ namespace LRouge
     {
         public ConsoleColor Color { get; set; } = ConsoleColor.Green;
         public string Symbol { get; } = "C ";
-        public Cell Cell { get; }
+        public Cell Cell { get; set; }
 
         public Creature(Cell cell, string symbol)
         {
