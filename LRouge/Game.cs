@@ -46,16 +46,16 @@ namespace LRouge
             switch (keyPressed)
             {
                 case ConsoleKey.LeftArrow:
-                    Move(new Position(0, -1));
+                    Move(Direction.W);
                     break;
                 case ConsoleKey.UpArrow:
-                    Move(new Position(-1, 0));
+                    Move(Direction.N);
                     break;
                 case ConsoleKey.RightArrow:
-                    Move(new Position(0, 1));
+                    Move(Direction.E);
                     break;
                 case ConsoleKey.DownArrow:
-                    Move(new Position(1, 0));
+                    Move(Direction.S);
                     break;
             }
         }
