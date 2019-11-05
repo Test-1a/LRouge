@@ -14,7 +14,7 @@ namespace LRouge
 
                     //IDrawable drawable = map.CreatureAt(cell) ?? cell;
                     IDrawable drawable = map.Creatures.CreatureAtExten(cell) ?? cell;
-                
+                    
                     Console.ForegroundColor = drawable?.Color ?? ConsoleColor.White;
                     Console.Write(drawable?.Symbol);
                 }
