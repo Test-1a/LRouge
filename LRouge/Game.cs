@@ -46,24 +46,25 @@ namespace LRouge
             switch (keyPressed)
             {
                 case ConsoleKey.LeftArrow:
-                   Move(hero.Cell.X - 1, hero.Cell.Y);
+                    Move(new Position(0, -1));
                     break;
                 case ConsoleKey.UpArrow:
-                   Move(hero.Cell.X, hero.Cell.Y - 1);
+                    Move(new Position(-1, 0));
                     break;
                 case ConsoleKey.RightArrow:
-                   Move(hero.Cell.X + 1, hero.Cell.Y);
+                    Move(new Position(0, 1));
                     break;
                 case ConsoleKey.DownArrow:
-                   Move(hero.Cell.X, hero.Cell.Y + 1);
+                    Move(new Position(1, 0));
                     break;
             }
         }
 
-        private void Move(int x, int y)
+        private void Move(Position movement)
         {
-            var newPosition = map.GetCell(y,x);
-            if (newPosition != null) hero.Cell = newPosition;
+            Position newPosition = hero.Cell.Position + movement;
+            Cell newCell = map.GetCell(newPosition);
+            if (newCell != null) hero.Cell = newCell;
         }
 
         private void DrawMap()
