@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LimitedList
 {
-    public class LimitedList<T> : IEnumerable<T> 
+    public class LimitedList<T> : IEnumerable<T>
     {
-        //sff
         private readonly int capacity;
         private readonly List<T> list;
 
