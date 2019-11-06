@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace LRouge
 {
@@ -13,7 +14,9 @@ namespace LRouge
                     Cell cell = map.GetCell(y, x);
 
                     //IDrawable drawable = map.CreatureAt(cell) ?? cell;
-                    IDrawable drawable = map.Creatures.CreatureAtExten(cell) ?? cell;
+                        IDrawable drawable = map.Creatures.CreatureAtExten(cell) ?? 
+                        (IDrawable)cell.Items.FirstOrDefault() ?? 
+                        cell;
                     
                     Console.ForegroundColor = drawable?.Color ?? ConsoleColor.White;
                     Console.Write(drawable?.Symbol);
