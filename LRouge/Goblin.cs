@@ -6,10 +6,10 @@ namespace LRouge
 {
     class Goblin : Creature
     {
-        public Goblin(Cell cell) : base(cell, "G ")
+        public Goblin(Cell cell) : base(cell, "G ", 25)
         {
             Damage = 15;
-            Maxhealth = 25;
+            Color = ConsoleColor.Green;
         }
     }
 }

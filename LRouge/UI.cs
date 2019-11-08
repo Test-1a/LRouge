@@ -45,7 +45,7 @@ namespace LRouge
 
         internal static void Clear()
         {
-            //Console.Clear();
+            Console.Clear();
             Console.SetCursorPosition(0, 0);
             Console.CursorVisible = false;
         }

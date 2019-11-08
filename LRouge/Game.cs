@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -109,6 +110,9 @@ namespace LRouge
         {
             Position newPosition = hero.Cell.Position + movement;
             Cell newCell = map.GetCell(newPosition);
+
+            var opponent = map.CreatureAt(newCell) as Creature;
+            if (opponent != null) hero.Attack(opponent);
             if (newCell != null) hero.Cell = newCell;
         }
 
@@ -142,12 +146,15 @@ namespace LRouge
             map.Creatures.Add(new Ogre(map.GetCell(random.Next(0, 9), random.Next(0, 9))));
             map.Creatures.Add(new Ogre(map.GetCell(random.Next(0, 9), random.Next(0, 9))));
 
+            map.Creatures.ForEach(c => c.AddMessage = UI.AddMessage);
+            map.Creatures.ForEach(c => c.AddMessage += (s) => Debug.WriteLine(s));
+
 
             map.GetCell(random.Next(0, 9), random.Next(0, 9)).Items.Add(Item.Coin());
             map.GetCell(random.Next(0, 9), random.Next(0, 9)).Items.Add(Item.Coin());
             map.GetCell(random.Next(0, 9), random.Next(0, 9)).Items.Add(Item.Coin());
             map.GetCell(random.Next(0, 9), random.Next(0, 9)).Items.Add(Item.Hat());
-
+             
         }
     }
 }
