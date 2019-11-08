@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Linq;
+using LimitedList;
 
 namespace LRouge
 {
     internal static class UI
     {
-        internal static void Draw(Map map)
+        private static MessageLog<string> messages = new MessageLog<string>(6);
+
+        public static void AddMessage(string message) => messages.Add(message);
+        internal static void DrawMap(Map map)
         {
             for (int y = 0; y < map.Height; y++)
             {
@@ -26,6 +30,13 @@ namespace LRouge
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        internal static void PrintStats(string stats)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine(stats);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
         internal static ConsoleKey GetKey()
         {
             return Console.ReadKey(intercept: true).Key;
@@ -36,6 +47,11 @@ namespace LRouge
             //Console.Clear();
             Console.SetCursorPosition(0, 0);
             Console.CursorVisible = false;
+        }
+
+        internal static void PrintLog()
+        {
+            messages.WriteAll(m => Console.WriteLine(m));
         }
     }
 }

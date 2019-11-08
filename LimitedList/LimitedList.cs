@@ -7,7 +7,7 @@ namespace LimitedList
     public class LimitedList<T> : IEnumerable<T>
     {
         private readonly int capacity;
-        private readonly List<T> list;
+        protected readonly List<T> list;
 
         public LimitedList(int capacity)
         {
@@ -18,7 +18,7 @@ namespace LimitedList
         public int Count => list.Count;
         public bool IsFull => capacity <= Count;
 
-        public bool Add(T item)
+        public virtual bool Add(T item)
         {
             if (IsFull) return false;
             list.Add(item);
@@ -37,6 +37,11 @@ namespace LimitedList
         }
 
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+
+        public void WriteAll(Action<T> action)
+        {
+            list.ForEach(i => action.Invoke(i));
+        }
 
 
 
