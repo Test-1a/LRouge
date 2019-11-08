@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace LRouge
 {
@@ -57,7 +58,7 @@ namespace LRouge
                     break;
                 case ConsoleKey.DownArrow:
                     Move(Direction.S);
-                    break; 
+                    break;
                 case ConsoleKey.Q:
                     gameInProgress = false;
                     break;
@@ -74,18 +75,33 @@ namespace LRouge
 
         private void Inventory()
         {
+            var counter = 1;
+            var builder = new StringBuilder();
+            builder.AppendLine("Inventory:");
             foreach (var item in hero.Backpack)
             {
-                Console.WriteLine(item);
+                builder.AppendLine($"{counter}: \t{item}");
+                counter++;
             }
+            UI.AddMessage(builder.ToString());
         }
 
         private void PickUp()
         {
+            if (hero.Backpack.IsFull)
+            {
+                UI.AddMessage("Backpack is full");
+                return;
+            }
+
             var items = hero.Cell.Items;
             var item = items.FirstOrDefault();
             if (item == null) return;
-            if (hero.Backpack.Add(item)) items.Remove(item);
+            if (hero.Backpack.Add(item))
+            {
+                UI.AddMessage($"Hero picks up {item.ToString()}");
+                items.Remove(item);
+            }
 
         }
 
@@ -98,19 +114,19 @@ namespace LRouge
 
         private void Draw()
         {
-            UI.Clear(); 
+            UI.Clear();
             UI.DrawMap(map);
             UI.PrintStats($"Health: {hero.Health}\nEnemys: {map.Creatures.Count}\n______________");
             UI.PrintLog();
-           
-            
+
+
         }
 
         private void Initialize()
         {
             //ToDo: Read from config later
             map = new Map(width: 10, height: 10);
-            AddCreaturesAndItems(); 
+            AddCreaturesAndItems();
         }
 
         private void AddCreaturesAndItems()
@@ -120,18 +136,18 @@ namespace LRouge
             map.Creatures.Add(hero);
 
             var random = new Random();
-            map.Creatures.Add(new Goblin(map.GetCell(random.Next(0,9),random.Next(0,9))));
-            map.Creatures.Add(new Goblin(map.GetCell(random.Next(0,9),random.Next(0,9))));
-            map.Creatures.Add(new Ogre(map.GetCell(random.Next(0,9),random.Next(0,9))));
-            map.Creatures.Add(new Ogre(map.GetCell(random.Next(0,9),random.Next(0,9))));
-            map.Creatures.Add(new Ogre(map.GetCell(random.Next(0,9),random.Next(0,9))));
-           
+            map.Creatures.Add(new Goblin(map.GetCell(random.Next(0, 9), random.Next(0, 9))));
+            map.Creatures.Add(new Goblin(map.GetCell(random.Next(0, 9), random.Next(0, 9))));
+            map.Creatures.Add(new Ogre(map.GetCell(random.Next(0, 9), random.Next(0, 9))));
+            map.Creatures.Add(new Ogre(map.GetCell(random.Next(0, 9), random.Next(0, 9))));
+            map.Creatures.Add(new Ogre(map.GetCell(random.Next(0, 9), random.Next(0, 9))));
+
 
             map.GetCell(random.Next(0, 9), random.Next(0, 9)).Items.Add(Item.Coin());
             map.GetCell(random.Next(0, 9), random.Next(0, 9)).Items.Add(Item.Coin());
             map.GetCell(random.Next(0, 9), random.Next(0, 9)).Items.Add(Item.Coin());
             map.GetCell(random.Next(0, 9), random.Next(0, 9)).Items.Add(Item.Hat());
-           
+
         }
     }
 }

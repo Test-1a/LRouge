@@ -6,9 +6,10 @@ namespace LRouge
 {
     internal static class UI
     {
-        private static MessageLog<string> messages = new MessageLog<string>(6);
+        private static MessageLog<string> messageLog = new MessageLog<string>(6);
 
-        public static void AddMessage(string message) => messages.Add(message);
+        public static void AddMessage(string message) => messageLog.Add(message);
+
         internal static void DrawMap(Map map)
         {
             for (int y = 0; y < map.Height; y++)
@@ -51,7 +52,15 @@ namespace LRouge
 
         internal static void PrintLog()
         {
-            messages.WriteAll(m => Console.WriteLine(m));
+            messageLog.WriteAll(m => Console.WriteLine(m));
+            //messageLog.WriteAll(Print);
         }
+
+        //private static void Print(string mess)
+        //{
+        //    Console.WriteLine(mess);
+        //}
+
+       
     }
 }

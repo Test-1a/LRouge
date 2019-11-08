@@ -41,9 +41,12 @@ namespace LimitedList
         public void WriteAll(Action<T> action)
         {
             list.ForEach(i => action.Invoke(i));
+
+            //foreach (var item in list)
+            //{
+            //    action.Invoke(item);
+            //}
         }
-
-
 
     }
 }
