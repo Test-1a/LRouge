@@ -12,11 +12,13 @@ namespace LimitedList
         public LimitedList(int capacity)
         {
             this.capacity = Math.Max(0, capacity);
-            list = new List<T>(capacity);
+            list = new List<T>(this.capacity);
         }
 
         public int Count => list.Count;
         public bool IsFull => capacity <= Count;
+
+        public int Capacity => list.Capacity;
 
         public virtual bool Add(T item)
         {
