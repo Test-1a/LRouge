@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
 
 namespace LRouge
 {
@@ -6,7 +8,14 @@ namespace LRouge
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
+          
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            var configuration = builder.Build();
+            
+            Game game = new Game(configuration);
             game.Run();
 
             Console.WriteLine("Thanks for playing");
@@ -14,3 +23,4 @@ namespace LRouge
         }
     }
 }
+   

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,9 +12,11 @@ namespace LRouge
         private Map map;
         private Hero hero;
         private bool gameInProgress = true;
+        private readonly IConfiguration configuration;
 
-        public Game()
+        public Game(IConfiguration configuration)
         {
+            this.configuration = configuration;
         }
 
         internal void Run()
@@ -128,32 +131,37 @@ namespace LRouge
 
         private void Initialize()
         {
-            //ToDo: Read from config later
-            map = new Map(width: 10, height: 10);
-            AddCreaturesAndItems();
+            //Important! Go to properties for appsettings.json set property: "Copy to output directory" to "Copy if newer"
+            var mapSettings = configuration.GetSection("LRouge:MapSettings");
+            int.TryParse(mapSettings["X"], out int width);
+            int.TryParse(mapSettings["Y"], out int height);
+
+            map = new Map(width, height);
+            AddCreaturesAndItems(width, height);
         }
 
-        private void AddCreaturesAndItems()
+        private void AddCreaturesAndItems(int width, int height)
         {
+             
             var heroCell = map.GetCell(0, 0);
             hero = new Hero(heroCell);
             map.Creatures.Add(hero);
 
             var random = new Random();
-            map.Creatures.Add(new Goblin(map.GetCell(random.Next(0, 9), random.Next(0, 9))));
-            map.Creatures.Add(new Goblin(map.GetCell(random.Next(0, 9), random.Next(0, 9))));
-            map.Creatures.Add(new Ogre(map.GetCell(random.Next(0, 9), random.Next(0, 9))));
-            map.Creatures.Add(new Ogre(map.GetCell(random.Next(0, 9), random.Next(0, 9))));
-            map.Creatures.Add(new Ogre(map.GetCell(random.Next(0, 9), random.Next(0, 9))));
+            map.Creatures.Add(new Goblin(map.GetCell(random.Next(0, height), random.Next(0, width))));
+            map.Creatures.Add(new Goblin(map.GetCell(random.Next(0, height), random.Next(0, width))));
+            map.Creatures.Add(new Ogre  (map.GetCell(random.Next(0, height), random.Next(0, width))));
+            map.Creatures.Add(new Ogre  (map.GetCell(random.Next(0, height), random.Next(0, width))));
+            map.Creatures.Add(new Ogre  (map.GetCell(random.Next(0, height), random.Next(0, width))));
 
             map.Creatures.ForEach(c => c.AddMessage = UI.AddMessage);
             map.Creatures.ForEach(c => c.AddMessage += (s) => Debug.WriteLine(s));
 
 
-            map.GetCell(random.Next(0, 9), random.Next(0, 9)).Items.Add(Item.Coin());
-            map.GetCell(random.Next(0, 9), random.Next(0, 9)).Items.Add(Item.Coin());
-            map.GetCell(random.Next(0, 9), random.Next(0, 9)).Items.Add(Item.Coin());
-            map.GetCell(random.Next(0, 9), random.Next(0, 9)).Items.Add(Item.Hat());
+            map.GetCell(random.Next(0, height), random.Next(0, width)).Items.Add(Item.Coin());
+            map.GetCell(random.Next(0, height), random.Next(0, width)).Items.Add(Item.Coin());
+            map.GetCell(random.Next(0, height), random.Next(0, width)).Items.Add(Item.Coin());
+            map.GetCell(random.Next(0, height), random.Next(0, width)).Items.Add(Item.Hat());
              
         }
     }
