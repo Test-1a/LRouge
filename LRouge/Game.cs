@@ -12,9 +12,9 @@ namespace LRouge
         private Map map;
         private Hero hero;
         private bool gameInProgress = true;
-        private readonly IConfiguration configuration;
+        private readonly IConfigurationRoot configuration;
 
-        public Game(IConfiguration configuration)
+        public Game(IConfigurationRoot configuration)
         {
             this.configuration = configuration;
         }
@@ -142,7 +142,7 @@ namespace LRouge
 
         private void AddCreaturesAndItems(int width, int height)
         {
-             
+
             var heroCell = map.GetCell(0, 0);
             hero = new Hero(heroCell);
             map.Creatures.Add(hero);
@@ -150,9 +150,9 @@ namespace LRouge
             var random = new Random();
             map.Creatures.Add(new Goblin(map.GetCell(random.Next(0, height), random.Next(0, width))));
             map.Creatures.Add(new Goblin(map.GetCell(random.Next(0, height), random.Next(0, width))));
-            map.Creatures.Add(new Ogre  (map.GetCell(random.Next(0, height), random.Next(0, width))));
-            map.Creatures.Add(new Ogre  (map.GetCell(random.Next(0, height), random.Next(0, width))));
-            map.Creatures.Add(new Ogre  (map.GetCell(random.Next(0, height), random.Next(0, width))));
+            map.Creatures.Add(new Ogre(map.GetCell(random.Next(0, height), random.Next(0, width))));
+            map.Creatures.Add(new Ogre(map.GetCell(random.Next(0, height), random.Next(0, width))));
+            map.Creatures.Add(new Ogre(map.GetCell(random.Next(0, height), random.Next(0, width))));
 
             map.Creatures.ForEach(c => c.AddMessage = UI.AddMessage);
             map.Creatures.ForEach(c => c.AddMessage += (s) => Debug.WriteLine(s));
@@ -162,7 +162,7 @@ namespace LRouge
             map.GetCell(random.Next(0, height), random.Next(0, width)).Items.Add(Item.Coin());
             map.GetCell(random.Next(0, height), random.Next(0, width)).Items.Add(Item.Coin());
             map.GetCell(random.Next(0, height), random.Next(0, width)).Items.Add(Item.Hat());
-             
+
         }
     }
 }
