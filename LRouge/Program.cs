@@ -32,6 +32,7 @@ namespace LRouge
 
             //Add access to IConfigurationRoot
             serviceCollection.AddSingleton<IConfigurationRoot>(configuration);
+            serviceCollection.AddTransient<Map>();
             serviceCollection.AddTransient<Game>();
            
         }

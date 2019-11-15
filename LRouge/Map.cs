@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,16 +16,17 @@ namespace LRouge
 
         public List<Creature> Creatures { get; set; } = new List<Creature>();
 
-        public Map(int width, int height)
+        public Map(IConfigurationRoot configuration)
         {
-            Width = width;
-            Height = height;
 
-            cells = new Cell[height, width];
+            Width = configuration.GetMapSizeFor("X");
+            Height = configuration.GetMapSizeFor("Y");
 
-            for (int y = 0; y < height; y++)
+            cells = new Cell[Height, Width];
+
+            for (int y = 0; y < Height; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < Width; x++)
                 {
                     cells[y, x] = new Cell(new Position(y,x));
                 }

@@ -14,9 +14,10 @@ namespace LRouge
         private bool gameInProgress = true;
         private readonly IConfigurationRoot configuration;
 
-        public Game(IConfigurationRoot configuration)
+        public Game(IConfigurationRoot configuration, Map map)
         {
             this.configuration = configuration;
+            this.map = map;
         }
 
         internal void Run()
@@ -136,7 +137,7 @@ namespace LRouge
             int.TryParse(mapSettings["X"], out int width);
             int.TryParse(mapSettings["Y"], out int height);
 
-            map = new Map(width, height);
+            //map = new Map(width, height);
             AddCreaturesAndItems(width, height);
         }
 
